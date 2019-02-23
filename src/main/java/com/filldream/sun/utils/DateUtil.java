@@ -229,8 +229,6 @@ public class DateUtil {
 	}
     
     
-    
-    
     /**
      * long型时间转换为秒数，取整舍弃小数
      * @param date
