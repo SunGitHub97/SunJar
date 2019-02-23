@@ -101,7 +101,7 @@ public class EncryptUtil {
 		String noTimeToken = getUUID();
 		
 		String content = noTimeToken + time;
-		return Base64Encode(content, projectKey);
+		return RandomUtil.randAlphaNumString(3).toUpperCase()+Base64Encode(content, projectKey);
 	}
 	
 	/**
@@ -113,7 +113,7 @@ public class EncryptUtil {
 	public static int checkToken(String code,String projectKey) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmsss");
 		try {
-			String jiemi1 = Base64Decode(code);
+			String jiemi1 = Base64Decode(code.substring(3, code.length()));
 			Integer keyLength = projectKey.length();
 			String key = jiemi1.substring(jiemi1.length() - keyLength,jiemi1.length());
 			if(!key.equals(projectKey)) {
