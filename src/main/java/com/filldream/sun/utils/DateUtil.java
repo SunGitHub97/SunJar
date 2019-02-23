@@ -3,7 +3,6 @@ package com.filldream.sun.utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class DateUtil {
     public DateUtil() {
@@ -75,14 +74,7 @@ public class DateUtil {
 	 * @return
 	 */
 	public static Date getDateByAddDay(Date date, Integer number) {
-		try {
-			Calendar calendar = new GregorianCalendar();
-			calendar.setTime(date);
-			calendar.add(5, number.intValue());
-			return calendar.getTime();
-		} catch (Exception e) {
-		}
-		return date;
+		return getDateByAddCalendar(date, Calendar.DAY_OF_MONTH, number);
 	}
 	
 	/**
@@ -91,11 +83,8 @@ public class DateUtil {
 	 * @param addMinutes 
 	 * @return
 	 */
-	public static Date getDateByAddMinute(Date date, int addMinutes) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		cal.add(Calendar.MINUTE, addMinutes);
-		return cal.getTime();
+	public static Date getDateByAddMinute(Date date, int number) {
+		return getDateByAddCalendar(date, Calendar.MINUTE, number);
 	}
 	
 	/**
@@ -105,10 +94,10 @@ public class DateUtil {
 	 * @param amount       累加数
 	 * @return
 	 */
-	public static Date getDateByCalendar(Date date, int field, int amount) {
+	public static Date getDateByAddCalendar(Date date, int field, int number) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
-		cal.add(field, amount);
+		cal.add(field, number);
 		return cal.getTime();
 	}
 	
