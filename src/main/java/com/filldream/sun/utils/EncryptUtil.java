@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
+import com.filldream.sun.constants.ResultType;
 import com.filldream.sun.utils.SunCommon;
 
 /**
@@ -92,44 +93,37 @@ public class EncryptUtil {
 	 * @param second
 	 * @return
 	 */
-	public static String setToken(String projectKey,Integer second) {
+	public static String setToken(Integer second) {
 		Date overTime =DateUtil.getDateByAddCalendar(new Date(), Calendar.SECOND, second);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmsss");
 		
 		String time = simpleDateFormat.format(overTime);
 		
-		String noTimeToken = getUUID();
-		
-		String content = noTimeToken + time;
-		return RandomUtil.randAlphaNumString(3).toUpperCase()+Base64Encode(content, projectKey);
+		String token = getUUID() + time;
+		return RandomUtil.randAlphaNumString(3).toUpperCase()+Base64Encode(token);
 	}
 	
 	/**
 	 * 校验token有效性
 	 * @param code
 	 * @param projectKey
-	 * @return  0-正确 -1错误 -1001过时  999999-code错误
+	 * @return  0-正确 -1错误 -1001过时
 	 */
-	public static int checkToken(String code,String projectKey) {
+	public static int checkToken(String code) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmsss");
 		try {
 			String jiemi1 = Base64Decode(code.substring(3, code.length()));
-			Integer keyLength = projectKey.length();
-			String key = jiemi1.substring(jiemi1.length() - keyLength,jiemi1.length());
-			if(!key.equals(projectKey)) {
-				return -1;
-			}
-			
-			String time = jiemi1.substring(jiemi1.length() - keyLength-15,jiemi1.length() - keyLength);
+			String time = jiemi1.substring(jiemi1.length() - 15,jiemi1.length());
 			
 			if(Long.valueOf(time) >= Long.valueOf(sdf.format(new Date()))) {
-				return 0;
+				return ResultType.success;
 			}
 			
-			return -1001;
+			return ResultType.overTime;
 		}catch (Exception e) {
-			return -9999999;
+			return ResultType.sysError;
 		}
 	}
+	
 }
 
