@@ -11,7 +11,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.channels.FileChannel;
+import org.apache.commons.io.IOUtils;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -435,6 +442,29 @@ public class FileIOUtil {
         bos.close();  
         return bos.toByteArray();  
     }
+    
+    /**
+	*  下载网络资源转换成流
+	*
+	*/
+	public void downloadByUrlToIo(HttpServletResponse response,
+			HttpServletRequest request, String path){
+		try {
+			String[] logUrlArray = path.split("/");
+			String fileName = logUrlArray[logUrlArray.length - 1];
+			URL url = new URL(path);
+			URLConnection uc = url.openConnection();
+			response.setContentType("application/octet-stream");// 设置文件类型
+			response.setHeader("content-disposition", "attachment;filename="
+					+ URLEncoder.encode(fileName, "UTF-8"));
+			response.setHeader("Content-Length",
+					String.valueOf(uc.getContentLength()));
+			ServletOutputStream out = response.getOutputStream();
+			IOUtils.copy(uc.getInputStream(), out);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
     
     
 }
