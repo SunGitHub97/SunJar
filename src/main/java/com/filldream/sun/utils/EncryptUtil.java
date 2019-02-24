@@ -107,7 +107,7 @@ public class EncryptUtil {
 	 * 校验token有效性
 	 * @param code
 	 * @param projectKey
-	 * @return  0-正确 -1错误 -1001过时
+	 * @return  0-正确 -1错误 -1002过时
 	 */
 	public static int checkToken(String code) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmsss");
