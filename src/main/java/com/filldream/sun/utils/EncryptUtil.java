@@ -109,10 +109,10 @@ public class EncryptUtil {
 	 * @param projectKey
 	 * @return  0-正确 -1错误 -1002过时
 	 */
-	public static int checkToken(String code) {
+	public static int checkToken(String token) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmsss");
 		try {
-			String jiemi1 = Base64Decode(code.substring(3, code.length()));
+			String jiemi1 = Base64Decode(token.substring(3, token.length()));
 			String time = jiemi1.substring(jiemi1.length() - 15,jiemi1.length());
 			
 			if(Long.valueOf(time) >= Long.valueOf(sdf.format(new Date()))) {
