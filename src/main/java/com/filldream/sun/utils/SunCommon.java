@@ -1,13 +1,8 @@
 package com.filldream.sun.utils;
 
 /**
- * @Description:主要功能: SunJar的标准类
- * @Prject: SunJar
- * @Package: com.filldream.sun.utils
- * @author: Rick.sun
- * @date: 2019年02月23日
- * @Copyright: Rick.Sun
- * @Company: FillDream
+ * 主要功能: SunJar的标准类
+ * @author RickSun
  * @version: 1.0.0
  * 注：将一些需要依赖才能实现方法在这里实现,减少SunJar的依赖
  */

@@ -17,13 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @Description:主要功能: 集合工具类
- * @Prject: SunJar
- * @Package: com.filldream.sun.utils
+ * 主要功能: 集合工具类
  * @author: Rick.sun
- * @date: 2018年11月03日
- * @Copyright: Rick.sun
- * @Company:FillDream
  * @version: 1.0.0
  */
 public class ListUtil {
@@ -33,7 +28,7 @@ public class ListUtil {
 	
 	/**
 	 * 去掉基本 list中的重复值，且不保留顺序
-	 * @param list
+	 * @param list 集合
 	 */
 	public static <E> void removeSame(List<E> list){
 		HashSet<E> hSet  =   new  HashSet<E>(list);  
@@ -43,7 +38,7 @@ public class ListUtil {
 	
 	/**
 	 * 去掉基本 list中的重复值，且保留顺序
-	 * @param list
+	 * @param list 集合
 	 */
 	public static <E> void removeSameKeepOrder(List<E> list) {
 		Set<E> set = new HashSet<E>();
@@ -59,10 +54,10 @@ public class ListUtil {
 	
 	/**
 	 * 根据属性去掉list中的重复对象
-	 * 注：Bean的属性为null时报错
-	 * @param list
-	 * @param name
+	 * @param list   集合
+	 * @param name   字段名
 	 * @return
+	 * 注：Bean的属性为null时报错
 	 */
 	public static <T> List<T> removeSameByBeanList(List<T> list,String name){
 		if(list.isEmpty()) {
@@ -103,8 +98,8 @@ public class ListUtil {
 	
 	/**
 	 * 获取list中的某个属性的集合
-	 * @param list
-	 * @param paramName
+	 * @param list 集合
+	 * @param paramName 字段名
 	 * @return
 	 */
 	public static List<?> getParamList(List<?> list,String paramName){
@@ -130,8 +125,8 @@ public class ListUtil {
 	
 	/**
 	 * 基本类型list排序
-	 * @param list
-	 * @param isAsc
+	 * @param list 集合
+	 * @param isAsc 是否升序 true升序 false降序
 	 * @return
 	 */
 	public static <T> List<T> sortByBase(List<T> list,final Boolean isAsc){
