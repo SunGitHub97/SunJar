@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * 获取id工具类
+ * IP工具类
  * @author fishlord
  * 2016年6月5日上午1:39:20
  */

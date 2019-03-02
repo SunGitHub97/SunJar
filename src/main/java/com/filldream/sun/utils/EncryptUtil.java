@@ -11,7 +11,7 @@ import com.filldream.sun.constants.ResultType;
 import com.filldream.sun.utils.SunCommon;
 
 /**
- * 加解密
+ * 加解密工具类
  * @author RickSun
  *
  */
@@ -84,7 +84,7 @@ public class EncryptUtil {
     
 	
 	/**
-	 * 生成token
+	 * 生成简单token
 	 * @param projectKey
 	 * @param second
 	 * @return
@@ -100,7 +100,7 @@ public class EncryptUtil {
 	}
 	
 	/**
-	 * 校验token有效性
+	 * 校验简单token
 	 * @param code
 	 * @param projectKey
 	 * @return  0-正确 -1错误 -1002过时

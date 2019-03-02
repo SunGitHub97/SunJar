@@ -18,7 +18,7 @@ public final class ResultType {
 	public final static Integer noLogin         = -1001;
 	
 	/**
-	 * 超市
+	 * 超时
 	 */
 	public final static Integer overTime        = -1002;
 	

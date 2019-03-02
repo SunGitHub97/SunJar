@@ -39,7 +39,7 @@ public class SmsUtil {
 	 * 详细配置发送短信
 	 * @param keyId           阿里keyId
 	 * @param keySecret       阿里keySecret
-	 * @param signName        阿里签没signName
+	 * @param signName        阿里签名signName
 	 * @param templateCode    短信模板
 	 * @param messageMap      短信参数
 	 * @param mobile          手机号
@@ -88,7 +88,7 @@ public class SmsUtil {
 	}
 	
 	/**
-	 * 创建Demo
+	 * 打印创建demo的帮助信息
 	 */
 	public static void help() {
 		System.out.println("	static final String keyId = \"xxx\";\r\n" + 
