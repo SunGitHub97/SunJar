@@ -23,7 +23,7 @@ public class CheckUtil {
 	 * 判断是否是56个民族
 	 * @param nation  要判断的民族
 	 * @param addClan  是否加"族"字
-	 * @return
+	 * @return true-是 false-否
 	 */
 	public static boolean checkNation(String nation,Boolean addClan) {
 		String[] nations = FinalString.NATION.split(",");
@@ -44,14 +44,22 @@ public class CheckUtil {
 	}
 	
 	
-	//验证邮箱格式
+	/**
+	 * 验证邮箱格式
+	 * @param email  邮箱
+	 * @return true-是 false-否
+	 */
 	public static boolean checkEmail(String email) {
 		if(email==null) {return false;}
 		String regexMail = "\\w+(\\.\\w)*@\\w+(\\.\\w{2,3}){1,3}";
 		return email.matches(regexMail);
 	}
 	
-	//是否是质数
+	/**
+	 * 是否是质数
+	 * @param number  数字
+	 * @return true-是 false-否
+	 */
 	public static boolean isPrimeNum(Integer number) {
 		boolean isPrime=true;
 		int len=number/2;
@@ -64,7 +72,12 @@ public class CheckUtil {
 		return isPrime;
 	}
 	
-	//验证手机号码，注意号码段的跟新
+	/**
+	 * 验证手机号码
+	 * @param callnumber  手机号
+	 * @return true-是 false-否
+	 * <br>注意号码段的更新，新的号码段可能不适用
+	 */
 	public static boolean checkPhone(String callnumber) {
 		if(callnumber==null) {return false;}
 		String regexStr = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
@@ -73,7 +86,11 @@ public class CheckUtil {
 
 	
 	
-	//验证是否是中文汉字
+	/**
+	 * 验证是否是中文汉字
+	 * @param chstring  中文字符串
+	 * @return true-是 false-否
+	 */
 	public static boolean checkChineseString(String chstring) {
 		if(chstring==null) {return false;}
 		String regexStr = "^[\u4e00-\u9fa5]+";
@@ -81,7 +98,11 @@ public class CheckUtil {
 	}
 	
 	
-	//验证身份证ID是否合法
+	/**
+	 * 验证中国身份证是否合法
+	 * @param IDNumber  身份证号码
+	 * @return true-是 false-否
+	 */
 	public static boolean checkChinaIDNumber(String IDNumber) {
 	  	if (IDNumber == null || "".equals(IDNumber)) {
             return false;
@@ -153,7 +174,11 @@ public class CheckUtil {
     }//end checkChinaIDNumber
 	
 	
-	//验证IP地址的合法性
+	/**
+	 * 验证IP地址的合法性
+	 * @param ipstr  ip地址
+	 * @return true-是 false-否
+	 */
 	public static boolean checkIP(String ipstr) {
 		if(ipstr==null) {return false;}
 		Pattern pattern = Pattern.compile( "^((\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5]|[*])\\.){3}(\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5]|[*])$" );  
@@ -162,7 +187,11 @@ public class CheckUtil {
 	
 	
 	
-	//验证HTTP开头的URL,且验证带参网址
+	/**
+	 * 验证HTTP开头的URL,且验证带参的网址
+	 * @param URLstr  网址
+	 * @return true-是 false-否
+	 */
 	public static boolean checkHttpURL(String URLstr) {
 		if(URLstr==null) {return false;}
 		String regex = "^([hH][tT]{2}[pP]:/*|[hH][tT]{2}[pP][sS]:/*|[fF][tT][pP]:/*)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+(\\?{0,1}(([A-Za-z0-9-~]+\\={0,1})([A-Za-z0-9-~]*)\\&{0,1})*)$";
@@ -185,7 +214,11 @@ public class CheckUtil {
 	
 	
 	
-	//验证是否纯数字
+	/**
+	 * 验证是否纯数字
+	 * @param number  数字字符串，必须将验证对象转换成字符串验证
+	 * @return true-是 false-否
+	 */
 	public static boolean checkArabicNumerals(String number) {
 		String regexInteger = "[0-9]+";
 		return number.matches(regexInteger);
@@ -193,7 +226,11 @@ public class CheckUtil {
 	
 	
 	
-	//验证是否是整形
+	/**
+	 * 是否整型
+	 * @param number  数字字符串，必须将验证对象转换成字符串验证
+	 * @return true-是 false-否
+	 */
 	public static boolean checkInteger(String number) {
 		if(number==null) {return false;}
 		Matcher mer = Pattern.compile("^[+-]?[0-9]+$").matcher(number);
@@ -201,7 +238,11 @@ public class CheckUtil {
 	}
 	
 	
-	//验证是否是浮点型
+	/**
+	 * 是否小数
+	 * @param number  小数字符串，必须将验证对象转换成字符串验证
+	 * @return true-是 false-否
+	 */
 	public static boolean checkFloat(String number) {
 		if(number==null) {return false;}
 		Matcher mer = Pattern.compile("^-?([1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*|0?\\.0+|0)$").matcher(number);
@@ -210,31 +251,38 @@ public class CheckUtil {
 
 	
 	
-	//验证是否是字母组成的字符串
+	/**
+	 * 是否是字母组成的字符串
+	 * @param str  字符串
+	 * @return true-是 false-否
+	 */
 	public static boolean checkAlphabet(String str) {
 		if(str==null) {return false;}
 		return str.matches("[a-zA-Z]+");
 	}
 	
-	
+	/**
+	 * 验证数学区间
+	 * @param interval  区间字符串，例如：(1,100]
+	 * @param data 待验证数字
+	 * @author RickSun
+	 * @return
+	 * 	<p>返回一个Map</p>
+	 *  <p><b>map的key：</b></p>
+	 *  	<p>code:  0:范围正确  -1：范围错误</p>
+	 *  	<p>msg：    错误信息</p>
+	 *  	<p>compare:对比结果    0：属于  -1：不属于</p>
+	 *  	<p>leftBracket:左括号包含状态 0：不包含  1：包含</p>
+	 *  	<p>rightBracket:右括号包含状态 0：不包含  1：包含</p>
+	 *  	<p>leftNumber:左数字</p>
+	 *  	<p>rightNumber:右数字</p>
+	 *  <br>
+	 *  <p><b>注意：</b></p>
+	 *  	<p>1、当区间范围的数字为正数时请勿输入“+”正号，否则报错</p>
+	 *  	<p>2、当需要比较的数字为空时默认为0.0</p>
+	 *  <p>创建于2018-08-25</p>
+	 */
 	public static Map<String,String> checkInterval(String interval,Double data){
-		/**
-		 * result： Map<String,String>
-		 *   code:  0:范围正确  -1：范围错误
-		 *   msg：    错误信息
-		 *   compare:对比结果    0：属于  -1：不属于
-		 *   leftBracket:左括号包含状态 0：不包含  1：包含
-		 *   rightBracket:右括号包含状态 0：不包含  1：包含
-		 *   leftNumber:左数字
-		 *   rightNumber:右数字
-		 * API：
-		 *   	1、当区间范围的数字为正数时请勿输入“+”正号，否则报错
-		 *      2、当需要比较的数字为空时默认为0.0
-		 * Version：0.1
-		 * Auth：rick.sun
-		 * create_time:2018-08-25
-		 * update_time:2018-08-25
-		 */
 		Map<String,String> map = new HashMap<String,String>();
 		String leftBracket = new String();
 		String rightBrachet = new String();

@@ -85,9 +85,8 @@ public class EncryptUtil {
 	
 	/**
 	 * 生成简单token
-	 * @param projectKey
-	 * @param second
-	 * @return
+	 * @param second  过去时间，秒
+	 * @return 返回token字符串
 	 */
 	public static String setSimpleToken(Integer second) {
 		Date overTime =DateUtil.getDateByAddCalendar(new Date(), Calendar.SECOND, second);
@@ -101,9 +100,8 @@ public class EncryptUtil {
 	
 	/**
 	 * 校验简单token
-	 * @param code
-	 * @param projectKey
-	 * @return  0-正确 -1错误 -1002过时
+	 * @param token  token字符串
+	 * @return 返回参数 0-正确 -1错误 -1002过时
 	 */
 	public static int checkSimpleToken(String token) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmsss");
