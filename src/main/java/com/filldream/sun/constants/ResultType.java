@@ -1,5 +1,10 @@
 package com.filldream.sun.constants;
 
+/**
+ * 常用返回值
+ * @author RickSun
+ *
+ */
 public final class ResultType {
 	
 	/**
