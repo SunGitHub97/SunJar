@@ -127,8 +127,8 @@ public class RandomUtil {
     
     /**
      * 从指定字符串中随机指定个数的字符串
-     * @param fromString
-     * @param len
+     * @param fromString	指定字符串
+     * @param len	长度
      * @return 字符串
      */
     public static String randDesignatedString(String fromString , int len) {
