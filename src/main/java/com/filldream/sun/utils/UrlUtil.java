@@ -119,13 +119,13 @@ public class UrlUtil {
 		return result;
 	}
 	
-	public static void main(String[] args) {
-		Map<String, String> mapParam = new HashMap<String, String>();
-		mapParam.put("pageNo", "1");
-		mapParam.put("pageSize","10");
-		mapParam.put("name","公文");
-		String pathUrl = "http://client2.365hy.com/chengguan/admin/document/list";
-		String result = sendPost(pathUrl, mapParam);
-		System.out.println(result);
-	}
+//	public static void main(String[] args) {
+//		Map<String, String> mapParam = new HashMap<String, String>();
+//		mapParam.put("pageNo", "1");
+//		mapParam.put("pageSize","10");
+//		mapParam.put("name","公文");
+//		String pathUrl = "http://client2.365hy.com/chengguan/admin/document/list";
+//		String result = sendPost(pathUrl, mapParam);
+//		System.out.println(result);
+//	}
 }

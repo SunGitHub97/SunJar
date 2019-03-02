@@ -36,8 +36,8 @@ public class FileIOUtil {
 	
 	/**
 	 * 将文件读取为字符串
-	 * @param file
-	 * @return
+	 * @param file  文件
+	 * @return 文件内容字符串
 	 */
 	public static String FileToString(File file) {
 		if(file == null) {
@@ -61,7 +61,7 @@ public class FileIOUtil {
 	/**
 	 * 根据文件名称来判断文件的后缀类型
 	 * @param fileName 文件名
-	 * @return
+	 * @return 后缀类型，例如jpg
 	 */
 	public static String getSuffixByFileName(String fileName) {
 		if(SunCommon.isBlank(fileName)) {
@@ -81,49 +81,49 @@ public class FileIOUtil {
 	
 	/**
 	 * 删除文件或文件夹
-	 * @param fileName
-	 * @return
+	 * @param path 文件全路径
+	 * @return true-成功 false-失败
 	 */
-	public static boolean deleteFiles(String fileName) {
-        File file = new File(fileName);
+	public static boolean deleteFiles(String path) {
+        File file = new File(path);
         if (!file.exists()) {
-        	logger.info("删除文件失败:" + fileName + "不存在！");
+        	logger.info("删除文件失败:" + path + "不存在！");
             return false;
         } else {
             if (file.isFile()) {
-                return deleteFile(fileName);
+                return deleteFile(path);
             } else {
-                return deleteDirectory(fileName);
+                return deleteDirectory(path);
             }
         }
     }
 	
 	/**
 	 * 删除单个文件
-	 * @param fileName
-	 * @return
+	 * @param path 文件路径
+	 * @return  true-成功 false-失败
 	 */
-	public static boolean deleteFile(String fileName) {
-        File file = new File(fileName);
+	public static boolean deleteFile(String path) {
+        File file = new File(path);
         // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
         if (file.exists() && file.isFile()) {
             if (file.delete()) {
-            	logger.info("删除单个文件" + fileName + "成功！");
+            	logger.info("删除单个文件" + path + "成功！");
                 return true;
             } else {
-            	logger.info("删除单个文件" + fileName + "失败！");
+            	logger.info("删除单个文件" + path + "失败！");
                 return false;
             }
         } else {
-        	logger.info("删除单个文件失败：" + fileName + "不存在！");
+        	logger.info("删除单个文件失败：" + path + "不存在！");
             return false;
         }
     }
 	
 	/**
 	 * 删除目录以及目录下所有文件
-	 * @param dir
-	 * @return
+	 * @param dir 目录路径
+	 * @return true-成功 false-失败
 	 */
 	public static boolean deleteDirectory(String dir) {
         // 如果dir不以文件分隔符结尾，自动添加文件分隔符
@@ -174,9 +174,9 @@ public class FileIOUtil {
 	//end  删除文件工具
 	
 	/**
-	 * 添加文件
-	 * @param bfile
-	 * @param fileURI
+	 * 字符数组转换为文件
+	 * @param bfile byte数组
+	 * @param fileURI 文件路径
 	 */
     public static void addFile(byte[] bfile, String fileURI) {
         BufferedOutputStream bos = null;
@@ -214,8 +214,8 @@ public class FileIOUtil {
     
     /**
    	 * 获取文件的名字,全名称
-   	 * @param fileURI   文件地址
-   	 * @return
+   	 * @param fileSource   文件地址
+   	 * @return 文件全名称，例如：iFillDream.jpg
    	 */
    	public static String getFullName( String fileSource) {
    		File file = new File(fileSource);
@@ -224,18 +224,22 @@ public class FileIOUtil {
     
     /**
 	 * 获取文件的去后缀名字
-	 * @param fileURI   文件地址
-	 * @return
+	 * @param fileSource   文件地址
+	 * @return 文件名称，例如：iFillDream
 	 */
 	public static String getFileNameNoSuffix( String fileSource) {
 		String fullName = getFullName(fileSource);
 		return fullName.substring(0, fullName.indexOf("."));
 	}
     
+	
 	/**
 	 * 获取文件大小
-	 * @param path
-	 * @return  错误返回0
+	 * @param path  文件路经
+	 * @param sizeName 存储单位：b、B、KB、M、G
+	 * @return 文件大小
+	 * <br>
+	 * <p>注：文件路径错误或发生异常返回0.0</p>
 	 */
 	public static Object getFileSize(String path, String sizeName) {
 		FileChannel fc = null;
@@ -289,7 +293,7 @@ public class FileIOUtil {
 	 * 创建空文件，不是文件夹
 	 * @param fileURI     文件路径，待文件名
 	 * @param rewrite     是否覆盖原文件，不覆盖则保持原有文件内容
-	 * @return
+	 * @return true-成功 false-失败
 	 */
 	public static Boolean createEmptyFile( String fileURI,Boolean rewrite) {
 		try {
@@ -310,8 +314,8 @@ public class FileIOUtil {
     
     /**
      * 创建多重文件夹
-     * @param path
-     * @return
+     * @param path 文件夹路径
+     * @return true-成功 false-失败
      */
     public static Boolean newDirectory (String path) {
     	File file = new File(path);
@@ -325,11 +329,11 @@ public class FileIOUtil {
     
     /**
      * 重命名文件、文件夹
-     * @param url         文件地址
-     * @param new_name    新名称
-     * @return
+     * @param url         文件路径
+     * @param newName    新名称
+     * @return true-成功 false-失败
      */
-    public static boolean renameFiles(String url, String new_name){
+    public static boolean renameFiles(String url, String newName){
         String old_url = url;
         old_url = old_url.replace("\\", "/");
         File old_file = new File(old_url);
@@ -342,7 +346,7 @@ public class FileIOUtil {
         // 获得父路径
         String parent = old_file.getParent();
         // 重命名
-        String new_url = parent + "/" + new_name;
+        String new_url = parent + "/" + newName;
         File new_file = new File(new_url);
         if (new_file.exists()) {
         	if( new_file.isFile() ) {
@@ -407,6 +411,7 @@ public class FileIOUtil {
     /**
      * 获取用户默认系统地址
      * @return
+     * <p>System.getProperty("user.dir");</p>
      */
     public static String getUserDirPath() {
     	return System.getProperty("user.dir");
@@ -414,7 +419,7 @@ public class FileIOUtil {
     
     /**
      * 获取用户默认系统文件夹地址
-     * @return
+     * @return 返回一个File
      */
     public static File getUserDirFile() {
     	return new File(getUserDirPath());
@@ -424,7 +429,7 @@ public class FileIOUtil {
     /**
      * 将输入流转换为byte数组
      * @param inputStream
-     * @return
+     * @return byte数组
      * @throws IOException
      */
     public static  byte[] readInputStreamToBytes(InputStream inputStream) throws IOException {  
@@ -439,9 +444,11 @@ public class FileIOUtil {
     }
     
     /**
-	*  下载网络资源转换成流
-	*
-	*/
+     * 下载网络资源转换成流
+     * @param response  响应
+     * @param request  请求
+     * @param path  文件路径
+     */
 	public void downloadByUrlToIo(HttpServletResponse response,
 			HttpServletRequest request, String path){
 		try {
