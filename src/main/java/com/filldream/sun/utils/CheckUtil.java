@@ -10,7 +10,11 @@ import org.slf4j.LoggerFactory;
 
 import com.filldream.sun.constants.FinalString;
 
-
+/**
+ * 校验工具类
+ * @author RickSun
+ *
+ */
 public class CheckUtil {
 	private static final Logger logger = LoggerFactory.getLogger(CheckUtil.class);
 	

@@ -12,6 +12,11 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.filldream.sun.sunEntity.AliSms;
 
+/**
+ * 短信工具类
+ * @author RickSun
+ *
+ */
 public class SmsUtil {
 	
 	/**

@@ -4,17 +4,12 @@ import java.math.BigDecimal;
 import java.util.Stack;
 
 
-/**
- * @Description:主要功能: 类型转换类
- * @Prject: CommonUtilLibrary
- * @Package: com.filldream.sun.utils
- * @author: online
- * @date: 2018年09月22日
- * @Copyright: online
- * @Company:
- * @version: 1.0.0
- */
 
+/**
+ * 类型转换类
+ * @author RickSun
+ *
+ */
 public class ConvertUtil {
 	private static final String C_CODES_STRING = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$.`";//42进制组成部分
 	

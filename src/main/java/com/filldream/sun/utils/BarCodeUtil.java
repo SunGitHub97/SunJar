@@ -28,6 +28,10 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 
+/**
+ * 条形码工具类
+ * @author RickSun
+ */
 public class BarCodeUtil {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BarCodeUtil.class);
@@ -100,8 +104,8 @@ public class BarCodeUtil {
     
     /**
      * 读取条形码内容
-     * @param imgPath
-     * @return
+     * @param imgPath 图片地址
+     * @return 条形码内容
      */
 	public static String readBarCode(String imgPath) {     
         BufferedImage image = null;     
@@ -121,25 +125,6 @@ public class BarCodeUtil {
         }     
         return "";     
     } 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

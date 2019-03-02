@@ -35,6 +35,11 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+/**
+ * 二维码工具类
+ * @author RickSun
+ *
+ */
 public class QrCodeUtil {
 
 	private final static Logger logger = LoggerFactory.getLogger(QrCodeUtil.class);

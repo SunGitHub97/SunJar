@@ -12,8 +12,8 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
 /**
- * 中文工具
- * @author online
+ * 中文工具类
+ * @author RickSun
  *
  */
 public class ChineseUtil {

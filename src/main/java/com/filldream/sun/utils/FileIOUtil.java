@@ -25,14 +25,9 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * @Description:主要功能: 文件以及IO工具类
- * @Prject: CommonUtilLibrary
- * @Package: com.filldream.sun.utils
- * @author: Rick.sun
- * @date: 2018年09月23日
- * @Copyright: Rick.sun
- * @Company: FillDream
- * @version: 1.0.0
+ * 文件以及IO工具类
+ * @author RickSun
+ *
  */
 public class FileIOUtil {
 	

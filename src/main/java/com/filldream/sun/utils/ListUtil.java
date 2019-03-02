@@ -17,9 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 主要功能: 集合工具类
+ * 集合工具类
  * @author: Rick.sun
- * @version: 1.0.0
  */
 public class ListUtil {
 

@@ -11,6 +11,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * URL工具类
+ * @author RickSun
+ *
+ */
 public class UrlUtil {
 
 	/**

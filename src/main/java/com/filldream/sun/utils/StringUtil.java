@@ -2,9 +2,8 @@ package com.filldream.sun.utils;
 
 
 /**
- * 字符串相关工具类
+ * 字符工具类
  * @author RickSun
- * @date 2018-09-22
  */
 public class StringUtil {
 	

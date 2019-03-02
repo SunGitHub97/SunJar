@@ -4,7 +4,11 @@ import java.util.Calendar;
 import java.util.Random;
 
 
-
+/**
+ * 随机工具类
+ * @author RickSun
+ *
+ */
 public class RandomUtil {
 	//字母
 	private static final String ALPHABET= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";

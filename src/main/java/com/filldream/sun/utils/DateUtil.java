@@ -4,6 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * 日期工具类
+ * @author RickSun
+ *
+ */
 public class DateUtil {
     public DateUtil() {
         throw new UnsupportedOperationException("cannot be instantiated");

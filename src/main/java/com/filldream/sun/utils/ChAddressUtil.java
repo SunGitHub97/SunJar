@@ -11,6 +11,11 @@ import org.json.JSONObject;
 
 import com.filldream.sun.sunEntity.Area;
 
+/**
+ * 省市区工具类
+ * @author RickSun
+ *
+ */
 public class ChAddressUtil {
 	/**
 	 * 根据省市区获取下级所有行政单位

@@ -11,13 +11,9 @@ import com.filldream.sun.constants.ResultType;
 import com.filldream.sun.utils.SunCommon;
 
 /**
- * @Description:主要功能:加解密
- * @Prject: SunJar
- * @Package: com.filldream.sun.utils
- * @author: Rick.sun
- * @date: 2019年02月23日
- * @Copyright: Rick.Sun
- * @Company: FillDream
+ * 加解密
+ * @author RickSun
+ *
  */
 public class EncryptUtil {
 	

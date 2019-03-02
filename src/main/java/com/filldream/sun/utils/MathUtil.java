@@ -4,14 +4,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
- * @Description:主要功能: 数学工具类
- * @Prject: CommonUtilLibrary
- * @Package: com.filldream.sun.utils
- * @author: Rick.sun
- * @date: 2018年09月23日
- * @Copyright: Rick.sun
- * @Company:FillDream
- * @version: 1.0.0
+ * 数学工具类
+ * @author RickSun
+ *
  */
 public class MathUtil {
     

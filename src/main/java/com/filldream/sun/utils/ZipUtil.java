@@ -6,6 +6,11 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Zip;
 import org.apache.tools.ant.types.FileSet;
 
+/**
+ * 压缩工具类
+ * @author RickSun
+ *
+ */
 public class ZipUtil {    
     
     private File zipFile;    
