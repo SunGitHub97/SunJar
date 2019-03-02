@@ -1,15 +1,23 @@
 package com.filldream.sun.utils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 /**
  * URL工具类
@@ -51,81 +59,89 @@ public class UrlUtil {
 	
 	
 	/**
-	 * 向指定URL发送POST请求
-	 * @param url        url
-	 * @param paramMap   参数map
-	 * @return 响应结果为json
+	 * 向指定URL发送Get请求
+	 * @param url
+	 * @return 返回json
+	 * @throws IOException
 	 */
-	public static String sendPost(String url, Map<String, String> paramMap) {
-		PrintWriter out = null;
-		BufferedReader in = null;
-		String result = "";
-		try {
-			URL realUrl = new URL(url);
-			// 打开和URL之间的连接
-			URLConnection conn = realUrl.openConnection();
-			// 设置通用的请求属性
-			conn.setRequestProperty("accept", "*/*");
-			conn.setRequestProperty("connection", "Keep-Alive");
-			conn.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-			// conn.setRequestProperty("Charset", "UTF-8");
-			// 发送POST请求必须设置如下两行
-			conn.setDoOutput(true);
-			conn.setDoInput(true);
-			// 获取URLConnection对象对应的输出流
-			out = new PrintWriter(conn.getOutputStream());
- 
-			// 设置请求属性
-			String param = "";
-			if (paramMap != null && paramMap.size() > 0) {
-				Iterator<String> ite = paramMap.keySet().iterator();
-				while (ite.hasNext()) {
-					String key = ite.next();// key
-					String value = paramMap.get(key);
-					param += key + "=" + value + "&";
-				}
-				param = param.substring(0, param.length() - 1);
-			}
-			
- 
-			// 发送请求参数
-			out.print(param);
-			// flush输出流的缓冲
-			out.flush();
-			// 定义BufferedReader输入流来读取URL的响应
-			in = new BufferedReader(
-					new InputStreamReader(conn.getInputStream()));
-			String line;
-			while ((line = in.readLine()) != null) {
-				result += line;
-			}
-		} catch (Exception e) {
-			System.err.println("发送 POST 请求出现异常！" + e);
-			e.printStackTrace();
+	public static String doGet(String url) throws IOException{
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpGet get = new HttpGet(url);
+		RequestConfig config = RequestConfig.custom().setConnectionRequestTimeout(30000).setConnectTimeout(30000).setSocketTimeout(30000).build();
+		get.setConfig(config);
+		CloseableHttpResponse response = httpClient.execute(get);
+		if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+			throw new IOException();
+		}else {
+			HttpEntity entity = response.getEntity();
+			String res = EntityUtils.toString(entity,StandardCharsets.UTF_8);
+			EntityUtils.consume(entity);
+			return res;
 		}
-		// 使用finally块来关闭输出流、输入流
-		finally {
-			try {
-				if (out != null) {
-					out.close();
-				}
-				if (in != null) {
-					in.close();
-				}
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return result;
 	}
 	
-//	public static void main(String[] args) {
-//		Map<String, String> mapParam = new HashMap<String, String>();
-//		mapParam.put("pageNo", "1");
-//		mapParam.put("pageSize","10");
-//		mapParam.put("name","公文");
-//		String pathUrl = "http://client2.365hy.com/chengguan/admin/document/list";
-//		String result = sendPost(pathUrl, mapParam);
-//		System.out.println(result);
-//	}
+	/**
+	 * 向指定URL发送Get请求
+	 * @param url	url地址
+	 * @param param	参数
+	 * @return	返回Json
+	 * @throws IOException
+	 */
+	public static String doGet(String url,Map<String, String> param) throws IOException{
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		String queryStr = "";
+		if (param!=null) {
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			Set<String> keySet = param.keySet();
+			for (String key : keySet) {
+				params.add(new BasicNameValuePair(key, param.get(key)));
+			}
+			queryStr = EntityUtils.toString(new UrlEncodedFormEntity(params, StandardCharsets.UTF_8));
+		}
+		url+=(SunCommon.isBlank(queryStr)?"":("?"+ queryStr));
+		HttpGet get = new HttpGet(url);
+		RequestConfig config = RequestConfig.custom().setConnectionRequestTimeout(30000).setConnectTimeout(30000).setSocketTimeout(30000).build();
+		get.setConfig(config);
+		CloseableHttpResponse response = httpClient.execute(get);
+		if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+			throw new IOException();
+		}else {
+			HttpEntity entity = response.getEntity();
+			String res = EntityUtils.toString(entity,StandardCharsets.UTF_8);
+			EntityUtils.consume(entity);
+			return res;
+		}
+	}
+	
+	
+	/**
+	 * 向指定URL发送Post请求
+	 * @param url
+	 * @param param
+	 * @return
+	 * @throws IOException
+	 */
+	public static String doPost(String url,Map<String, String> param) throws IOException{
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpPost post = new HttpPost(url);
+		RequestConfig config = RequestConfig.custom().setConnectionRequestTimeout(30000).setConnectTimeout(30000).setSocketTimeout(30000).build();
+		post.setConfig(config);
+		if (param!=null) {
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			Set<String> keySet = param.keySet();
+			for (String key : keySet) {
+				params.add(new BasicNameValuePair(key, param.get(key)));
+			}
+			post.setEntity(new UrlEncodedFormEntity(params, StandardCharsets.UTF_8));
+		}
+		CloseableHttpResponse response = httpClient.execute(post);
+		if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+			throw new IOException();
+		}else {
+			HttpEntity entity = response.getEntity();
+			String res = EntityUtils.toString(entity,StandardCharsets.UTF_8);
+			EntityUtils.consume(entity);
+			return res;
+		}
+	}
 }

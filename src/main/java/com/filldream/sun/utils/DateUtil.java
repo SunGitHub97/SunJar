@@ -1,8 +1,25 @@
 package com.filldream.sun.utils;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+
+import com.filldream.sun.constants.ResultType;
+import com.filldream.sun.sunEntity.SunCalendar;
+import com.filldream.sun.sunEntity.jsonBean.calendar.Almanac;
+import com.filldream.sun.sunEntity.jsonBean.calendar.CalendarBean;
+import com.filldream.sun.sunEntity.jsonBean.calendar.Data;
+import com.filldream.sun.sunEntity.jsonBean.calendar.Holiday;
+import com.filldream.sun.sunEntity.jsonBean.calendar.Holidaylist;
+import com.filldream.sun.sunEntity.jsonBean.calendar.Work;
+
+import me.fishlord.common.utils.HttpUtils;
 
 /**
  * 日期工具类
@@ -19,7 +36,28 @@ public class DateUtil {
 	private static final long ONE_DAY = 86400000L;
 	private static final long ONE_WEEK = 604800000L;
 	
+	/**
+	 * 日期转字符串
+	 * @param date	日期
+	 * @param format	格式
+	 * @return	日期字符串
+	 */
+	public static String dateToStrng(Date date,String format) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		return sdf.format(date);
+	}
 	
+	/**
+	 * 字符串转日期
+	 * @param date	日期字符串
+	 * @param format	日期格式
+	 * @return	日期类型
+	 * @throws ParseException
+	 */
+	public static Date dateToStrng(String date,String format) throws ParseException{
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		return sdf.parse(format);
+	}
 	
 	
 	/**
@@ -281,5 +319,79 @@ public class DateUtil {
      */
     public static long LongtoYears(long date) {
 		return LongtoDays(date) / 365L;
+	}
+    
+    /**
+     * 获取日期万年历
+     * @param date
+     * @return 返回SunCalendar类
+     */
+    public static SunCalendar  getDayInfo(Date date) {
+    	String url = "https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6018&format=json&query="+DateUtil.dateToStrng(date, "yyyy年MM月");
+    	String current = DateUtil.dateToStrng(date, "yyyy-MM-dd");
+    	String content = null;
+		try {
+			content = UrlUtil.doGet(url);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	content = content.replaceAll("list#num#baidu", "listNum");
+    	SunCalendar result = new SunCalendar();
+    	CalendarBean calendarBean = JsonUtil.jsonToPojo(content, CalendarBean.class);
+    	if(calendarBean.getStatus().equals("0")) {
+    		List<Data> datas = calendarBean.getData();
+    		for(Data data : datas) {
+    			List<Almanac> almanacList = data.getAlmanac();
+    			for(Almanac almanac : almanacList) {
+    				if(DateUtil.dateToStrng(almanac.getDate(), "yyyy-MM-dd").equals(current)) {
+    					result.setSuit(almanac.getSuit());
+    					result.setAvoid(almanac.getAvoid());
+    				}
+    			}
+    			
+    			List<Holiday> holidayList = data.getHoliday();
+    			for(Holiday holiday : holidayList) {
+    				List<Work> list = holiday.getList();
+    				for(Work work : list) {
+    					if(DateUtil.dateToStrng(work.getDate(), "yyyy-MM-dd").equals(current)) {
+        					result.setIsWork(Integer.valueOf(work.getStatus()));
+        				}
+    				}
+    			}
+    			
+    			List<Holidaylist> holidaylists = data.getHolidaylist();
+    			for(Holidaylist hList : holidaylists) {
+    				if(DateUtil.dateToStrng(hList.getStartday(), "yyyy-MM-dd").equals(current)) {
+    					result.setHoliday(hList.getName());
+    				}
+    			}
+    		}
+    	}
+    	result.setIsWork(getDayIsWork(date));
+    	return result;
+    }
+    
+    /**
+     * 获取日期的工作状态
+     * @param date  日期
+     * @return 0-工作日 1-节假日调休补班 2-休息日 
+     * 异常失败为-1
+     */
+    public static Integer getDayIsWork(Date date) {
+    	try {
+			String workStr = UrlUtil.doGet("http://api.goseek.cn/Tools/holiday?date="+DateUtil.dateToStrng(date, "yyyyMMdd"));
+			Work work = JsonUtil.jsonToPojo(workStr, Work.class);
+			if(work.getCode().equals("10000")) {
+				return work.getData();
+			}
+		} catch (IOException e) {
+			return -1;
+		}
+    	return -1;
+    }
+    
+    public static void main(String[] args) {
+    	 SunCalendar dayInfo = getDayInfo(new Date());
+    	 System.out.println(dayInfo);
 	}
 }
