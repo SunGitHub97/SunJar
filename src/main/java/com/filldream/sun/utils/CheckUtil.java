@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.filldream.sun.constants.FinalString;
+import com.filldream.sun.constants.FinalConstants;
 
 /**
  * 校验工具类
@@ -26,7 +26,7 @@ public class CheckUtil {
 	 * @return true-是 false-否
 	 */
 	public static boolean checkNation(String nation,Boolean addClan) {
-		String[] nations = FinalString.NATION.split(",");
+		String[] nations = FinalConstants.NATION.split(",");
 		if(addClan == false) {
 			for(String simNation : nations) {
 				if(simNation.equals(nation)) {
