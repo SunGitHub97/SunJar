@@ -27,6 +27,29 @@ public class SunCalendar {
 	 * 节假日名称
 	 */
 	private String holiday;
+	
+	/**
+	 * 农历日期
+	 */
+	private String lunar;
+	
+	private String week;
+
+	public String getWeek() {
+		return week;
+	}
+
+	public void setWeek(String week) {
+		this.week = week;
+	}
+
+	public String getLunar() {
+		return lunar;
+	}
+
+	public void setLunar(String lunar) {
+		this.lunar = lunar;
+	}
 
 	public String getAvoid() {
 		return avoid;
@@ -62,8 +85,11 @@ public class SunCalendar {
 
 	@Override
 	public String toString() {
-		return "SunCalendar [avoid=" + avoid + ", suit=" + suit + ", isWork=" + isWork + ", holiday=" + holiday + "]";
+		return "SunCalendar [avoid=" + avoid + ", suit=" + suit + ", isWork=" + isWork + ", holiday=" + holiday
+				+ ", lunar=" + lunar + ", week"+ week + "]";
 	}
+
+	
 	
 	
 }

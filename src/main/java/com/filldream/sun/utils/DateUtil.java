@@ -3,9 +3,11 @@ package com.filldream.sun.utils;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.filldream.sun.constants.FinalConstants;
 import com.filldream.sun.sunEntity.SunCalendar;
@@ -314,4 +316,21 @@ public class DateUtil {
     public static long LongtoYears(long date) {
 		return LongtoDays(date) / 365L;
 	}
+    
+    /**
+     * 获取日期是一个月中第几个星期几
+     * @param date  日期
+     * @return 返回一个list，第一个为星期数，第二个为星期
+     */
+    public static List<String> dayInWeekInMonth(Date date){
+    	Integer weekNumber = Integer.valueOf(dateToStrng(date, "W") ) -1;
+    	if(weekNumber < 1) {
+    		weekNumber = 1;
+    	}
+    	List<String> list = new ArrayList<String>();
+    	list.add(weekNumber.toString());
+    	list.add( dateToStrng(date, "E"));
+    	return list;
+    }
+    
 }

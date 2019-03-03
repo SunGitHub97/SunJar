@@ -139,7 +139,7 @@ public final class FinalConstants {
      * 农历数字
      */
     public final static String CHINESENUMBER[] = { "一", "二", "三", "四", "五", "六", "七",
-            "八", "九", "十", "十一", "十二" };
+            "八", "九", "十", "十一", "十二"};
     
     /**
      * 农历数字
@@ -171,5 +171,11 @@ public final class FinalConstants {
             0x0d530, 0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0,
             0x1d0b6, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0, 0x056d0, 0x055b2,
             0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0 };
+    
+    /**
+     * 二十四节气
+     */
+    public final static  String[] TERM = { "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑",
+    		"大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至" };
 }
 
