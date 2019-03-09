@@ -14,10 +14,13 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * URL工具类
@@ -26,6 +29,8 @@ import org.apache.http.util.EntityUtils;
  */
 public class UrlUtil {
 
+	private static final Logger log = LoggerFactory.getLogger(UrlUtil.class);
+	
 	/**
 	 * 拼接URL/接口参数
 	 * @param linkUrl      url/接口
@@ -140,6 +145,36 @@ public class UrlUtil {
 		}else {
 			HttpEntity entity = response.getEntity();
 			String res = EntityUtils.toString(entity,StandardCharsets.UTF_8);
+			EntityUtils.consume(entity);
+			return res;
+		}
+	}
+	
+	/**
+	 * post请求
+	 * 
+	 * @param url
+	 * @param body
+	 * @return
+	 * @throws IOException
+	 */
+	public static String doPost(String url,String body) throws IOException{
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		log.debug("url:" + url);
+		HttpPost post = new HttpPost(url);
+		RequestConfig config = RequestConfig.custom().setConnectionRequestTimeout(30000).setConnectTimeout(30000).setSocketTimeout(30000).build();
+		post.setConfig(config);
+		if (body!=null) {
+		    post.setEntity(new StringEntity(body,StandardCharsets.UTF_8));
+		    log.debug("body:" + body);
+		}
+		CloseableHttpResponse response = httpClient.execute(post);
+		if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+			throw new IOException();
+		}else {
+			HttpEntity entity = response.getEntity();
+			String res = EntityUtils.toString(entity,StandardCharsets.UTF_8);
+			log.debug("res:" + res);
 			EntityUtils.consume(entity);
 			return res;
 		}
