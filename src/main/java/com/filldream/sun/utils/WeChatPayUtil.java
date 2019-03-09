@@ -21,10 +21,20 @@ import org.w3c.dom.NodeList;
 
 import com.filldream.sun.sunEntity.WeChatPayParams;
 
+/**
+ * 微信支付工具类
+ * @author RickSun
+ *
+ */
 public class WeChatPayUtil {
 	
 	private static final Logger log = LoggerFactory.getLogger(WeChatPayUtil.class);
 	
+	/**
+	 * 获取微信支付参数，统一下单
+	 * @param weChatPram	微信参数实体类
+	 * @return	返回支付参数结果
+	 */
 	public static Map<String, String> getPayParam(WeChatPayParams weChatPram) {
 		log.debug(weChatPram.toString());
 		try {
@@ -65,7 +75,7 @@ public class WeChatPayUtil {
      * @param resp
      * @return
      */
-    public static String getPrepayId(String resp,String wxKey) {
+    private static String getPrepayId(String resp,String wxKey) {
 
         Map<String, String> respMap = xmlToMap(resp);
         if (respMap == null) {
@@ -99,7 +109,7 @@ public class WeChatPayUtil {
      * @param params
      * @return
      */
-    public static boolean verifySign(Map<String, String> params,String wxKey) {
+    private static boolean verifySign(Map<String, String> params,String wxKey) {
         String sign = params.get("sign");
         Map<String, String> signMap = paraFilter(params);
         String signStr = createLinkString(signMap);
@@ -113,7 +123,7 @@ public class WeChatPayUtil {
      * @param prepayId
      * @return
      */
-    public static Map<String, String> buildReqDto(String prepayId,WeChatPayParams weChatPayParams) {
+    private static Map<String, String> buildReqDto(String prepayId,WeChatPayParams weChatPayParams) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("appid", weChatPayParams.getAppId());// 微信开放平台审核通过的应用APPID
         params.put("partnerid", weChatPayParams.getMchId());// 微信支付分配的商户号
@@ -137,7 +147,7 @@ public class WeChatPayUtil {
 	 *            签名参数组
 	 * @return 去掉空值与签名参数后的新签名参数组
 	 */
-	public static Map<String, String> paraFilter(Map<String, String> sArray) {
+    private static Map<String, String> paraFilter(Map<String, String> sArray) {
 
 		Map<String, String> result = new HashMap<String, String>();
 
@@ -164,7 +174,7 @@ public class WeChatPayUtil {
 	 *            需要排序并参与字符拼接的参数组
 	 * @return 拼接后字符串
 	 */
-	public static String createLinkString(Map<String, String> params) {
+    private static String createLinkString(Map<String, String> params) {
 
 		List<String> keys = new ArrayList<String>(params.keySet());
 		Collections.sort(keys);
@@ -187,9 +197,8 @@ public class WeChatPayUtil {
 
 	/**
 	 * 将map转换成XML
-	 * 
-	 * @param params
-	 * @return
+	 * @param params	map类型的参数
+	 * @return	返回xml
 	 */
 	public static String mapToXml(Map<String, String> params) {
 		Element root = DocumentHelper.createElement("root");
@@ -203,9 +212,8 @@ public class WeChatPayUtil {
 
 	/**
 	 * 将返回的XML转换成map
-	 * 
-	 * @param xml
-	 * @return
+	 * @param xml	xml文本
+	 * @return	map
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Map<String, String> xmlToMap(String xml) {

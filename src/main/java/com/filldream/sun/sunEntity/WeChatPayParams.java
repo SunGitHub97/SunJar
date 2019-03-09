@@ -1,5 +1,9 @@
 package com.filldream.sun.sunEntity;
 
+/**
+ * 微信支付参数类
+ * @author RickSun
+ */
 public class WeChatPayParams {
 
 	private String appId;
