@@ -33,7 +33,20 @@ public class SunCalendar {
 	 */
 	private String lunar;
 	
+	/**
+	 * 星期
+	 */
 	private String week;
+	
+	private String gan;
+
+	public String getGan() {
+		return gan;
+	}
+
+	public void setGan(String gan) {
+		this.gan = gan;
+	}
 
 	public String getWeek() {
 		return week;
@@ -86,10 +99,7 @@ public class SunCalendar {
 	@Override
 	public String toString() {
 		return "SunCalendar [avoid=" + avoid + ", suit=" + suit + ", isWork=" + isWork + ", holiday=" + holiday
-				+ ", lunar=" + lunar + ", week"+ week + "]";
+				+ ", lunar=" + lunar + ", week=" + week + ", gan=" + gan + "]";
 	}
-
-	
-	
 	
 }

@@ -9,29 +9,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import com.filldream.sun.constants.FinalConstants;
 import com.filldream.sun.sunEntity.SunCalendar;
 import com.filldream.sun.sunEntity.jsonBean.calendar.Almanac;
 import com.filldream.sun.sunEntity.jsonBean.calendar.CalendarBean;
 import com.filldream.sun.sunEntity.jsonBean.calendar.Data;
 import com.filldream.sun.sunEntity.jsonBean.calendar.Holiday;
-import com.filldream.sun.sunEntity.jsonBean.calendar.Holidaylist;
 import com.filldream.sun.sunEntity.jsonBean.calendar.Holidays;
 import com.filldream.sun.sunEntity.jsonBean.calendar.Work;
-
-import me.fishlord.common.utils.JacksonUtils;
-
 
 /**
  * 万年历工具类
  * @author RickSun
- *
+ * 2019-03-03 16:39
  */
 public class LunarUtil {
     public LunarUtil() {
@@ -74,6 +66,7 @@ public class LunarUtil {
      * 获取农历读法
      * @param day	日期
      * @return	农历读法
+     * 例如：1则返回"初一"
      */
     public static String getChinaDayString(int day) {
         int n = day % 10 == 0 ? 9 : day % 10 - 1;
@@ -88,12 +81,16 @@ public class LunarUtil {
     /**
      * 获取天干地支
      * @param num	数字
-     * @param isYear	true-为年	false-月份或日数
+     * @param type	1-日	2-月	3-年
      * @return 天干地支
+     * 例如：num=16,isYear=false,返回"丙辰"<br>
+     * num=2019,isYear=true,返回"己亥"
      */
-    public static String cyclicalm(int num,boolean isYear) {
-    	if(isYear) {
+    public static String cyclicalm(int num,int type) {
+    	if(type == 3) {
     		num = num - 1900 + 36;
+    	}else if(type == 1) {
+//    		return (FinalConstants.GAN[num % 4] + FinalConstants.ZHI[num % 3]);
     	}
         return (FinalConstants.GAN[num % 10] + FinalConstants.ZHI[num % 12]);
     }
@@ -103,6 +100,7 @@ public class LunarUtil {
      * 获取日期万年历
      * @param date
      * @return 返回SunCalendar类
+     * 包含:星期、禁忌、事宜、农历、班休状态、节假日、天干地支年月日
      * @throws ParseException
      */
     public static SunCalendar  getDayInfo(Date date) throws ParseException{
@@ -142,6 +140,11 @@ public class LunarUtil {
     	result.setIsWork(getDayIsWork(date));
     	result.setHoliday(getHoliday(date));
     	result.setLunar(getLunar(date));
+    	result.setGan( 
+    			cyclicalm(DateUtil.getTimeSlice(date, Calendar.YEAR), 3) + "年"
+    			+ cyclicalm(DateUtil.getTimeSlice(date, Calendar.MONTH)+1, 2) + "月"
+//    			+ cyclicalm(DateUtil.getTimeSlice(date, Calendar.DAY_OF_MONTH), 1) + "日"
+    			);
     	return result;
     }
     
@@ -174,8 +177,9 @@ public class LunarUtil {
     
     /**
 	 * 获取日期的节假日
-	 * @param date
-	 * @return
+	 * @param date	日期
+	 * @return	例如：春节
+	 * 无则返回null
 	 */
 	public static String getHoliday(Date date) throws ParseException{
 		Integer year = DateUtil.getTimeSlice(date, Calendar.YEAR);
@@ -268,7 +272,7 @@ public class LunarUtil {
 			}
 		}
 		if(result.length() < 1) {
-			return result;
+			return null;
 		}
 		return result.substring(0,result.length()-1);
 	}
@@ -500,5 +504,4 @@ public class LunarUtil {
 	}
   	
     //end 24节气算法
-    
 }
