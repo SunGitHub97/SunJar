@@ -82,6 +82,45 @@ public class EncryptUtil {
 		return DigestUtils.md5Hex(content);
 	}
     
+    /**
+     * Md5加密        带key
+     * @param content
+     * @param key
+     * @return
+     */
+    public static String md5Encode(String content, String key) {
+    	if (SunCommon.isNotBlank(key)) {
+    		content = content + key;
+		}
+        return DigestUtils.md5Hex(content);
+    }
+
+    /**
+     * Md5解密	无Key
+     * @param text 需要签名的字符串
+     * @param sign 签名结果
+     * @return 校验结果
+     */
+    public static boolean md5Verify(String text, String sign) {
+    	return md5Verify(text, null, sign);
+    }
+    
+    /**
+     * Md5解密	带Key
+     * @param text 需要签名的字符串
+     * @param sign 签名结果
+     * @param key 密钥
+     * @return 校验结果
+     */
+    public static boolean md5Verify(String text, String key, String sign) {
+        String mySign = md5Encode(text, key);
+        if (mySign.equalsIgnoreCase(sign)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 	
 	/**
 	 * 生成简单token
